@@ -92,9 +92,9 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-20 z-40 flex flex-col bg-void/98 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 top-20 z-40 flex flex-col overflow-y-auto bg-void/98 backdrop-blur-xl lg:hidden"
           >
-            <nav className="container-galivra flex flex-1 flex-col justify-center gap-8 py-12">
+            <nav className="container-galivra flex flex-1 flex-col justify-center gap-3 py-10 sm:gap-5">
               {NAV_LINKS.map((link, i) => (
                 <motion.div
                   key={link.href}
@@ -105,7 +105,7 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="text-4xl font-semibold tracking-tight text-white"
+                    className="text-2xl font-semibold tracking-tight text-white sm:text-3xl"
                   >
                     {link.label}
                   </Link>
@@ -115,7 +115,7 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: NAV_LINKS.length * 0.05 }}
-                className="pt-4"
+                className="pt-3"
               >
                 <Button
                   href="/kontak"

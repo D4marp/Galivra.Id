@@ -93,71 +93,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
   },
   {
-    slug: "jdih-gresik",
-    name: "JDIH Gresik",
-    category: "Mobile App (Pemerintahan)",
-    year: "2024",
-    tech: ["Flutter", "RESTful API"],
-    summary:
-      "Sistem dokumentasi berbasis mobile yang memberikan akses publik ke dokumen hukum resmi Pemerintah Kabupaten Gresik.",
-    description:
-      "Aplikasi memungkinkan warga mencari, melihat, dan mengunduh peraturan daerah, keputusan, dan dokumen hukum resmi lainnya dalam antarmuka yang terstruktur dan mudah digunakan.",
-    role: [
-      "Mengembangkan aplikasi mobile menggunakan Flutter (cross-platform Android & iOS)",
-      "Mengintegrasikan RESTful API untuk pengambilan dan sinkronisasi dokumen",
-      "Menerapkan state management dan clean architecture",
-      "Mengoptimalkan performa dan rendering dokumen agar mulus",
-      "Mengelola deployment build dan rilis production-ready",
-    ],
-    impact: [
-      "Meningkatkan transparansi dan akses publik terhadap regulasi pemerintah",
-      "Mempercepat pencarian informasi hukum bagi warga dan pemangku kepentingan",
-    ],
-    features: [
-      "Pencarian dan filter lanjutan untuk dokumen hukum",
-      "Manajemen dokumen berkategori (Perda, Perbup, SK, dll)",
-      "Viewer dan download dokumen PDF",
-      "Integrasi data real-time via RESTful API",
-      "Arsitektur aman dan scalable",
-      "UI responsif dan optimal untuk Android & iOS",
-    ],
-    links: {
-      playStore: "https://play.google.com/store/apps/details?id=id.gresik.jdih&hl=id",
-    },
-  },
-  {
-    slug: "jdih-dprd-gresik",
-    name: "JDIH DPRD Gresik",
-    category: "Mobile App (Pemerintahan)",
-    year: "2024",
-    tech: ["Flutter", "RESTful API"],
-    summary:
-      "Sistem dokumentasi berbasis mobile yang menyediakan akses publik ke dokumen hukum resmi Sekretariat DPRD Kabupaten Gresik.",
-    description:
-      "Portal informasi dan dokumentasi hukum Dewan Perwakilan Rakyat Daerah Kabupaten Gresik, memungkinkan warga mencari, melihat, dan mengunduh regulasi serta dokumen hukum resmi lainnya.",
-    role: [
-      "Mengembangkan aplikasi mobile menggunakan Flutter (cross-platform Android & iOS)",
-      "Mengintegrasikan RESTful API untuk pengambilan dan sinkronisasi dokumen",
-      "Menerapkan state management dan clean architecture",
-      "Mengoptimalkan performa dan rendering dokumen agar mulus",
-      "Mengelola deployment build dan rilis production-ready",
-    ],
-    impact: [
-      "Meningkatkan transparansi dan akses publik terhadap regulasi DPRD",
-      "Mempercepat pencarian informasi hukum bagi warga dan pemangku kepentingan",
-    ],
-    features: [
-      "Pencarian dan filter lanjutan untuk dokumen hukum",
-      "Manajemen dokumen berkategori (Perda, Perbup, SK, dll)",
-      "Viewer dan download dokumen PDF",
-      "Integrasi data real-time via RESTful API",
-      "Arsitektur aman dan scalable",
-      "UI responsif dan optimal untuk Android & iOS",
-    ],
-    links: {},
-    linkNote: "Link Play Store menyusul.",
-  },
-  {
     slug: "sarana-bahagia",
     name: "Sarana Bahagia",
     category: "Web App (Sistem Bisnis)",
@@ -192,21 +127,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     linkNote: "Infrastruktur internal, tidak memiliki akses publik.",
   },
   {
-    slug: "web-xr-pln-tour",
-    name: "Web XR — PLN Tour",
-    category: "WebXR / Virtual Tour",
-    year: "2024",
-    tech: ["WebXR"],
-    summary:
-      "Virtual tour berbasis WebXR untuk fasilitas PLN, berkolaborasi dengan PT Nusantara Power Surabaya dan Universitas Nahdlatul Ulama Surabaya.",
-    description:
-      "Membangun pengalaman tur virtual 360° berbasis web yang memungkinkan pengguna menjelajahi fasilitas PLN Nusantara Power secara interaktif langsung dari browser.",
-    role: ["Pengembangan WebXR tour"],
-    impact: ["Memberikan pengalaman eksplorasi fasilitas secara virtual tanpa perlu kunjungan fisik"],
-    links: {},
-    linkNote: "Project kolaborasi, tidak memiliki akses publik.",
-  },
-  {
     slug: "visualisasi-data",
     name: "Visualisasi Data",
     category: "Dashboard / Data Visualization",
@@ -226,6 +146,89 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
     links: { website: "https://metabase.fiyansa.com" },
     linkNote: "Tools internal, memerlukan akun untuk mengakses.",
+  },
+  {
+    slug: "auto-lamongan",
+    name: "AutoLamongan",
+    category: "Website",
+    year: "2026",
+    tech: ["Next.js", "Tailwind CSS"],
+    summary:
+      "Website showroom mobil baru & bekas di Lamongan — katalog unit, simulasi kredit, dan CTA test drive gratis via WhatsApp.",
+    description:
+      "Landing page untuk showroom mobil, mencakup katalog mobil unggulan (baru & bekas) dengan harga OTR, info kredit/leasing dan tukar tambah, testimoni pelanggan, serta CTA konsultasi dan test drive gratis lewat WhatsApp.",
+    role: ["Full development menggunakan Next.js & Tailwind CSS"],
+    impact: [
+      "Mempermudah calon pembeli melihat katalog unit dan harga tanpa harus datang ke showroom dulu",
+      "Meningkatkan kepercayaan lewat testimoni dan informasi garansi/kredit yang jelas",
+    ],
+    features: [
+      "Katalog mobil unggulan dengan harga OTR",
+      "Info kredit, tukar tambah, dan asuransi",
+      "Testimoni pelanggan",
+      "CTA test drive gratis & konsultasi via WhatsApp",
+    ],
+    links: { website: "https://auto-lamongan.vercel.app" },
+  },
+  {
+    slug: "maxchine",
+    name: "MAXCHINE",
+    category: "Website (Startup / Pitch Deck)",
+    year: "2026",
+    tech: ["Next.js", "Tailwind CSS"],
+    summary:
+      "Website pitch deck untuk startup MAXCHINE — Compatibility Engine untuk standarisasi data komponen dan marketplace suku cadang otomotif Indonesia.",
+    description:
+      "Membangun landing page investor-facing untuk startup MAXCHINE, mencakup penjelasan masalah pasar, solusi Compatibility Engine, analisis kompetitor, unit economics, roadmap, tim, hingga penawaran pendanaan pre-seed.",
+    role: ["Full development menggunakan Next.js & Tailwind CSS"],
+    impact: [
+      "Menyajikan data pasar dan model bisnis yang kompleks dalam format yang mudah dipahami calon investor",
+      "Mendukung proses fundraising pre-seed startup",
+    ],
+    features: [
+      "Penjelasan masalah pasar & solusi (Compatibility Engine)",
+      "Analisis kompetitor & TAM/SAM/SOM",
+      "Unit economics & roadmap ekspansi",
+      "Profil tim & penawaran pendanaan",
+    ],
+    links: { website: "https://maxchine-id.vercel.app" },
+  },
+  {
+    slug: "ptsam",
+    name: "PT. Sinar Afnaindo Makmur",
+    category: "Website (UMKM)",
+    year: "2025",
+    tech: ["Next.js", "Tailwind CSS"],
+    summary:
+      "Website company profile untuk produsen cemilan sehat daun kelor \"Minimi\" — katalog produk, layanan produksi/distribusi, dan galeri aktivitas perusahaan.",
+    description:
+      "Landing page untuk UMKM produsen cemilan sehat berbahan daun kelor, mencakup pengenalan produk (snack, mie, rengginang), katalog produk dengan pemesanan via WhatsApp, testimoni pelanggan, layanan produksi-distribusi-konsultasi, serta galeri aktivitas perusahaan.",
+    role: ["Full development menggunakan Next.js & Tailwind CSS"],
+    impact: [
+      "Memberikan kehadiran digital profesional untuk produk UMKM lokal Lamongan",
+      "Mempermudah pelanggan memesan produk langsung via WhatsApp",
+    ],
+    features: [
+      "Katalog produk dengan pemesanan via WhatsApp",
+      "Testimoni pelanggan",
+      "Layanan produksi, distribusi, & konsultasi",
+      "Galeri aktivitas perusahaan",
+    ],
+    links: { website: "https://ptsam.vercel.app" },
+  },
+  {
+    slug: "otobook-landingpage",
+    name: "Otobook — Landing Page",
+    category: "Website",
+    year: "2024",
+    tech: ["Web"],
+    summary:
+      "Landing page promosi untuk aplikasi Otobook — pembaca otomatis metadata buku untuk perpustakaan menggunakan Tesseract OCR dan OpenAI GPT.",
+    description:
+      "Website promosi yang menjelaskan cara kerja Otobook dalam mendigitalisasi metadata buku perpustakaan secara otomatis, sebagai pelengkap aplikasi mobile Otobook.",
+    role: ["Full development landing page"],
+    impact: ["Memberikan halaman promosi yang jelas untuk memperkenalkan Otobook ke perpustakaan baru"],
+    links: { website: "https://otobook-landingpage.netlify.app" },
   },
   {
     slug: "juup-id",
