@@ -12,6 +12,14 @@
     background-color: #05070a;
   }
 
+  @media (pointer: fine) {
+    body,
+    a,
+    button {
+      cursor: none;
+    }
+  }
+
   ::selection {
     background: rgba(59, 130, 246, 0.35);
     color: #ffffff;
@@ -80,6 +88,10 @@
 
   .num-marker {
     @apply font-mono text-sm text-galivra-blue/70;
+  }
+
+  .image-reveal {
+    clip-path: inset(0 0 0 0);
   }
 }
 

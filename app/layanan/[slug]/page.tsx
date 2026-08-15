@@ -7,6 +7,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { SERVICES, SITE, type Service } from "@/lib/data";
+import { RevealText } from "@/components/cinematic/RevealText";
+import { Reveal } from "@/components/cinematic/Reveal";
 
 function getService(slug: string): Service | undefined {
   return SERVICES.find((s) => s.slug === slug);
@@ -70,12 +72,17 @@ export default function LayananDetailPage({
                 )}
                 <p className="eyebrow">Layanan</p>
               </div>
-              <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                {service.title}
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">
-                {service.longDescription}
-              </p>
+              <RevealText
+                as="h1"
+                text={service.title}
+                trigger="mount"
+                className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl"
+              />
+              <Reveal y={16} delay={0.3}>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">
+                  {service.longDescription}
+                </p>
+              </Reveal>
 
               <div className="mt-6 flex items-baseline gap-1.5">
                 <span className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
@@ -127,18 +134,17 @@ export default function LayananDetailPage({
               Menjangkau Berbagai Segmen Bisnis.
             </h2>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {service.segments.map((segment) => (
-                <div
-                  key={segment.title}
-                  className="glass-panel rounded-2xl p-6"
-                >
-                  <h3 className="text-base font-medium text-white">
-                    {segment.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                    {segment.description}
-                  </p>
-                </div>
+              {service.segments.map((segment, i) => (
+                <Reveal key={segment.title} delay={i * 0.08} y={20}>
+                  <div className="glass-panel h-full rounded-2xl p-6">
+                    <h3 className="text-base font-medium text-white">
+                      {segment.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                      {segment.description}
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -149,15 +155,15 @@ export default function LayananDetailPage({
               Pertanyaan yang Sering Ditanyakan.
             </h2>
             <div className="mt-10 max-w-2xl space-y-8">
-              {service.faq.map((item) => (
-                <div key={item.question}>
+              {service.faq.map((item, i) => (
+                <Reveal key={item.question} delay={i * 0.06}>
                   <h3 className="text-base font-medium text-white">
                     {item.question}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">
                     {item.answer}
                   </p>
-                </div>
+                </Reveal>
               ))}
             </div>
 

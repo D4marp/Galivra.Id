@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
+import { ImageReveal } from "@/components/cinematic/ImageReveal";
 import { PORTFOLIO_PROJECTS } from "@/lib/portfolio";
 
 export function Portfolio() {
@@ -14,7 +15,7 @@ export function Portfolio() {
         <SectionHeading
           eyebrow="Karya Pilihan"
           title="Project yang Sudah Kami Kerjakan."
-          description="16 project nyata dari mobile app, web app, sampai infrastruktur — klik untuk lihat detail lengkap tiap project."
+          description={`${PORTFOLIO_PROJECTS.length} project nyata dari mobile app, web app, sampai infrastruktur — klik untuk lihat detail lengkap tiap project.`}
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -30,7 +31,7 @@ export function Portfolio() {
                 href={`/portfolio/${item.slug}`}
                 className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line"
               >
-                <div className="relative aspect-[16/9] overflow-hidden bg-panel">
+                <ImageReveal className="relative aspect-[16/9] bg-panel">
                   <Image
                     src={`/portfolio/${item.slug}.png`}
                     alt={item.name}
@@ -42,7 +43,7 @@ export function Portfolio() {
                   <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-line bg-void/60 text-ink-muted opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:border-galivra-blue/50 group-hover:text-galivra-cyan">
                     <ArrowUpRight className="h-4 w-4" />
                   </div>
-                </div>
+                </ImageReveal>
                 <div className="glass-panel flex flex-1 flex-col border-t-0 p-6">
                   <p className="eyebrow">{item.category}</p>
                   <h3 className="mt-2 text-lg font-medium text-white">

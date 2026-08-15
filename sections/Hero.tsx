@@ -1,7 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { RevealText } from "@/components/cinematic/RevealText";
+
+const ParticleField = dynamic(
+  () =>
+    import("@/components/cinematic/ParticleField").then(
+      (m) => m.ParticleField
+    ),
+  { ssr: false }
+);
 
 const TRUST_ITEMS = ["Web", "Mobile", "AI", "Otomasi", "Data"];
 
@@ -122,6 +132,7 @@ export function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden pt-32"
     >
       <div className="absolute inset-0 bg-void bg-glow-blue" />
+      <ParticleField className="absolute inset-0 opacity-70" />
       <div className="grid-bg absolute inset-0" />
       <div className="noise-overlay absolute inset-0" />
 
@@ -136,17 +147,14 @@ export function Hero() {
             Mitra Inovasi Digital
           </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+          <RevealText
+            as="h1"
+            text="Bangun Solusi Digital yang Membawa Bisnis Anda Maju."
+            highlight="Bisnis"
+            trigger="mount"
+            delay={0.15}
             className="mt-6 text-hero-mobile font-semibold text-white md:text-hero-tablet lg:text-hero-desktop"
-          >
-            Bangun Solusi Digital
-            <br />
-            yang Membawa <span className="text-gradient">Bisnis</span> Anda
-            Maju.
-          </motion.h1>
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -198,6 +206,23 @@ export function Hero() {
           <GMark />
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute inset-x-0 bottom-8 hidden flex-col items-center gap-3 md:flex"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-faint">
+          Scroll
+        </span>
+        <motion.span
+          className="h-9 w-px bg-gradient-to-b from-galivra-cyan/70 to-transparent"
+          animate={{ scaleY: [0.3, 1, 0.3], opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ transformOrigin: "top" }}
+        />
+      </motion.div>
     </section>
   );
 }

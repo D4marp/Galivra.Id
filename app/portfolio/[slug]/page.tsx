@@ -7,6 +7,9 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/Button";
 import { PORTFOLIO_PROJECTS, getPortfolioProject } from "@/lib/portfolio";
+import { RevealText } from "@/components/cinematic/RevealText";
+import { Reveal } from "@/components/cinematic/Reveal";
+import { ImageReveal } from "@/components/cinematic/ImageReveal";
 
 export function generateStaticParams() {
   return PORTFOLIO_PROJECTS.map((project) => ({ slug: project.slug }));
@@ -52,12 +55,17 @@ export default function PortfolioDetailPage({
           <div className="mt-8 grid grid-cols-1 gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div>
               <p className="eyebrow">{project.category}</p>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                {project.name}
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">
-                {project.description}
-              </p>
+              <RevealText
+                as="h1"
+                text={project.name}
+                trigger="mount"
+                className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl"
+              />
+              <Reveal y={16} delay={0.3}>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">
+                  {project.description}
+                </p>
+              </Reveal>
 
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 {project.tech.map((t) => (
@@ -98,7 +106,7 @@ export default function PortfolioDetailPage({
               )}
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border border-line">
+            <ImageReveal className="relative rounded-2xl border border-line">
               <Image
                 src={`/portfolio/${project.slug}.png`}
                 alt={project.name}
@@ -107,11 +115,11 @@ export default function PortfolioDetailPage({
                 className="w-full object-cover"
                 priority
               />
-            </div>
+            </ImageReveal>
           </div>
 
           <div className="mt-20 grid grid-cols-1 gap-12 border-t border-line pt-14 md:grid-cols-2">
-            <div>
+            <Reveal>
               <h2 className="text-lg font-medium text-white">Peran Saya</h2>
               <ul className="mt-4 space-y-3">
                 {project.role.map((item) => (
@@ -123,8 +131,8 @@ export default function PortfolioDetailPage({
                   </li>
                 ))}
               </ul>
-            </div>
-            <div>
+            </Reveal>
+            <Reveal delay={0.08}>
               <h2 className="text-lg font-medium text-white">Dampak</h2>
               <ul className="mt-4 space-y-3">
                 {project.impact.map((item) => (
@@ -136,10 +144,10 @@ export default function PortfolioDetailPage({
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
 
             {project.features && (
-              <div>
+              <Reveal delay={0.16}>
                 <h2 className="text-lg font-medium text-white">Fitur Utama</h2>
                 <ul className="mt-4 space-y-3">
                   {project.features.map((item) => (
@@ -151,11 +159,11 @@ export default function PortfolioDetailPage({
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             )}
 
             {project.learning && (
-              <div>
+              <Reveal delay={0.24}>
                 <h2 className="text-lg font-medium text-white">Yang Dipelajari</h2>
                 <ul className="mt-4 space-y-3">
                   {project.learning.map((item) => (
@@ -167,7 +175,7 @@ export default function PortfolioDetailPage({
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             )}
           </div>
 

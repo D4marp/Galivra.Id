@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { CustomCursor } from "@/components/cinematic/CustomCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -65,7 +66,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${inter.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

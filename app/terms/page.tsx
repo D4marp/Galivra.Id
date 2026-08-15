@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SITE } from "@/lib/data";
+import { RevealText } from "@/components/cinematic/RevealText";
 
 export const metadata: Metadata = {
   title: "Syarat & Ketentuan — GALIVRA",
@@ -76,9 +77,12 @@ export default function TermsPage() {
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-20" />
         <div className="container-galivra relative pb-24">
           <p className="eyebrow">Legal</p>
-          <h1 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
-            Syarat & Ketentuan
-          </h1>
+          <RevealText
+            as="h1"
+            text="Syarat & Ketentuan"
+            trigger="mount"
+            className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-white md:text-5xl"
+          />
           <p className="mt-5 max-w-2xl text-sm text-ink-faint">
             Terakhir diperbarui: 8 Agustus 2026
           </p>
