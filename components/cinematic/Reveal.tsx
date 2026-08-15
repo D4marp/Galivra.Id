@@ -12,17 +12,19 @@ type RevealProps = {
   duration?: number;
   scale?: boolean;
   once?: boolean;
+  blur?: boolean;
 };
 
-/** Fades + rises a single block into view as it enters the viewport. */
+/** Fades + rises a single block into view as it enters the viewport, with a soft depth-of-field blur settle. */
 export function Reveal({
   children,
   className,
   delay = 0,
   y = 40,
-  duration = 1,
+  duration = 1.1,
   scale = false,
   once = true,
+  blur = true,
 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -36,6 +38,7 @@ export function Reveal({
     if (reduceMotion) {
       el.style.opacity = "1";
       el.style.transform = "none";
+      el.style.filter = "none";
       return;
     }
 
@@ -43,14 +46,20 @@ export function Reveal({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
-        { opacity: 0, y, scale: scale ? 0.94 : 1 },
+        {
+          opacity: 0,
+          y,
+          scale: scale ? 0.94 : 1,
+          filter: blur ? "blur(10px)" : "blur(0px)",
+        },
         {
           opacity: 1,
           y: 0,
           scale: 1,
+          filter: "blur(0px)",
           duration,
           delay,
-          ease: "power3.out",
+          ease: "expo.out",
           scrollTrigger: {
             trigger: el,
             start: "top 88%",
@@ -63,7 +72,7 @@ export function Reveal({
     }, ref);
 
     return () => ctx.revert();
-  }, [delay, y, duration, scale, once]);
+  }, [delay, y, duration, scale, once, blur]);
 
   return (
     <div ref={ref} className={cn("opacity-0", className)}>

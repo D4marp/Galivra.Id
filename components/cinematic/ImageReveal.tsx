@@ -44,16 +44,16 @@ export function ImageReveal({ children, className, delay = 0 }: ImageRevealProps
       });
       tl.to(el, {
         clipPath: "inset(0% 0% 0% 0%)",
-        duration: 1.2,
-        ease: "power4.out",
+        duration: 1.3,
+        ease: "expo.out",
       });
       if (img) {
         tl.to(
           img,
           {
             scale: 1,
-            duration: 1.4,
-            ease: "power3.out",
+            duration: 1.6,
+            ease: "expo.out",
             clearProps: "transform",
           },
           0

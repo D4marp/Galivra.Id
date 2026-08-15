@@ -32,7 +32,7 @@ function ParticleCloud({ count = 1100 }: { count?: number }) {
     <Points ref={ref} positions={positions} stride={3} frustumCulled>
       <PointMaterial
         transparent
-        color="#3b82f6"
+        color="#8e7cff"
         size={0.032}
         sizeAttenuation
         depthWrite={false}

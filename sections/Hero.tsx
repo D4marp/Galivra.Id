@@ -39,8 +39,8 @@ function GMark() {
         />
         <defs>
           <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#22D3EE" />
+            <stop offset="0%" stopColor="#6C5CE7" />
+            <stop offset="100%" stopColor="#FF6FB0" />
           </linearGradient>
         </defs>
       </motion.svg>
@@ -54,7 +54,7 @@ function GMark() {
           cy="210"
           r="150"
           fill="none"
-          stroke="#60A5FA"
+          stroke="#8E7CFF"
           strokeWidth="1"
           strokeDasharray="1 6"
         />
@@ -63,14 +63,14 @@ function GMark() {
       {/* the G, rendered as a wireframe arc — not the literal logo glyph */}
       <svg
         viewBox="0 0 200 200"
-        className="relative h-[62%] w-[62%] drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]"
+        className="relative h-[62%] w-[62%] drop-shadow-[0_0_30px_rgba(108,92,231,0.4)]"
         aria-hidden="true"
       >
         <defs>
           <linearGradient id="gStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#60A5FA" />
-            <stop offset="55%" stopColor="#3B82F6" />
-            <stop offset="100%" stopColor="#22D3EE" />
+            <stop offset="0%" stopColor="#8E7CFF" />
+            <stop offset="55%" stopColor="#6C5CE7" />
+            <stop offset="100%" stopColor="#FF6FB0" />
           </linearGradient>
         </defs>
         <motion.path
@@ -99,7 +99,7 @@ function GMark() {
             cx={cx}
             cy={cy}
             r={3.5}
-            fill="#22D3EE"
+            fill="#FF6FB0"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 1, 0.6, 1], scale: 1 }}
             transition={{ duration: 2.4, delay: 1 + i * 0.15, repeat: Infinity, repeatType: "reverse" }}

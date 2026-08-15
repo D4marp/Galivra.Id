@@ -61,10 +61,10 @@ export function RevealText({
         gsap.to(items, {
           yPercent: 0,
           opacity: 1,
-          duration: 0.9,
+          duration: 1.1,
           delay,
           stagger,
-          ease: "power4.out",
+          ease: "expo.out",
           ...(trigger === "scroll"
             ? {
                 scrollTrigger: {
@@ -94,7 +94,7 @@ export function RevealText({
   }, [words, delay, stagger, trigger]);
 
   return (
-    <Tag ref={ref as never} className={cn(className)}>
+    <Tag ref={ref as never} className={cn("font-display", className)}>
       {words.map((word, i) => {
         const isHighlight =
           highlightLower && word.toLowerCase().replace(/[.,]/g, "") === highlightLower;
