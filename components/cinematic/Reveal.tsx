@@ -69,6 +69,7 @@ export function Reveal({
           },
         }
       );
+      ScrollTrigger.refresh();
     }, ref);
 
     return () => ctx.revert();

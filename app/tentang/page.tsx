@@ -32,7 +32,7 @@ export default function TentangPage() {
             as="h1"
             text="Mitra Teknologi yang Fokus pada Hasil Bisnis Anda."
             trigger="mount"
-            className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-white md:text-5xl"
+            className="mt-4 max-w-2xl text-[2.25rem] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-6xl"
           />
           <Reveal y={16} delay={0.3}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-muted md:text-lg">

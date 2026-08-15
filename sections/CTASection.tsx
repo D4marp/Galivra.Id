@@ -16,7 +16,7 @@ export function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-4xl font-semibold tracking-tight text-white md:text-6xl lg:text-7xl"
+          className="font-display text-4xl font-medium leading-[1.02] tracking-[-0.03em] text-white md:text-6xl lg:text-8xl"
         >
           Punya Ide?
           <br />

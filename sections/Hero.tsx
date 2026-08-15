@@ -153,7 +153,7 @@ export function Hero() {
             highlight="Bisnis"
             trigger="mount"
             delay={0.15}
-            className="mt-6 text-hero-mobile font-semibold text-white md:text-hero-tablet lg:text-hero-desktop"
+            className="mt-6 text-hero-mobile font-medium text-white md:text-hero-tablet lg:text-hero-desktop"
           />
 
           <motion.p

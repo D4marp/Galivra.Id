@@ -28,16 +28,24 @@ export function SectionHeading({
       )}
     >
       <Reveal y={12} duration={0.6}>
-        <p className="eyebrow mb-4">{eyebrow}</p>
+        <p
+          className={cn(
+            "eyebrow mb-5 flex items-center gap-3",
+            align === "center" && "justify-center"
+          )}
+        >
+          <span className="h-px w-8 bg-galivra-cyan/50" />
+          {eyebrow}
+        </p>
       </Reveal>
       <RevealText
         as="h2"
         text={title}
-        className="text-3xl md:text-5xl font-semibold tracking-tight text-white text-balance"
+        className="text-[2.25rem] font-medium leading-[1.05] tracking-[-0.03em] text-white text-balance md:text-6xl"
       />
       {description && (
         <Reveal y={16} duration={0.7} delay={0.1}>
-          <p className="mt-5 text-base md:text-lg text-ink-muted leading-relaxed">
+          <p className="mt-6 text-base leading-relaxed text-ink-muted md:text-lg">
             {description}
           </p>
         </Reveal>
