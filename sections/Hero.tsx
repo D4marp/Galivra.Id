@@ -31,15 +31,15 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-galivra-cyan" />
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-              Studio teknologi · Web · Mobile · AI
+              Website · Aplikasi · Otomasi AI
             </span>
           </div>
         </Reveal>
 
         <RevealText
           as="h1"
-          text="Produk digital yang bekerja untuk bisnis Anda."
-          accent="bekerja"
+          text="Bisnis Anda bagus. Sayang, tidak terlihat."
+          accent="terlihat."
           trigger="mount"
           delay={0.05}
           stagger={0.06}
@@ -47,21 +47,22 @@ export function Hero() {
         />
 
         <div className="mt-12 grid grid-cols-1 gap-10 border-t border-white/10 pt-8 md:mt-16 md:grid-cols-12 md:items-end">
-          <Reveal trigger="mount" delay={0.45} className="md:col-span-5">
-            <p className="max-w-md text-base leading-relaxed text-ink-muted md:text-[17px]">
-              GALIVRA merancang dan membangun website, aplikasi mobile, sistem
-              bisnis, dan otomasi AI — dari ide pertama sampai live, dengan harga
-              yang jelas sejak awal.
-            </p>
+          <Reveal trigger="mount" delay={0.45} className="md:col-span-4">
+            <h2 className="max-w-md text-base font-normal leading-relaxed text-ink-muted md:text-[17px]">
+              Kami bangun website, aplikasi, dan otomasi AI. Hasilnya: bisnis
+              Anda <strong className="font-medium text-ink">ditemukan</strong>,{" "}
+              <strong className="font-medium text-ink">dipercaya</strong>, lalu{" "}
+              <strong className="font-medium text-ink">dipilih</strong>.
+            </h2>
           </Reveal>
 
-          <Reveal trigger="mount" delay={0.55} className="md:col-span-4">
-            <div className="flex flex-wrap gap-3">
+          <Reveal trigger="mount" delay={0.55} className="md:col-span-5">
+            <div className="flex flex-wrap gap-3 lg:flex-nowrap">
               <Button href="/kontak" variant="primary" withArrow size="lg">
-                Mulai Project
+                Minta rencana gratis
               </Button>
               <Button href="/karya" variant="secondary" size="lg">
-                Lihat Karya
+                Lihat hasil kerja
               </Button>
             </div>
           </Reveal>

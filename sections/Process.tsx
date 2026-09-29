@@ -46,7 +46,7 @@ export function Process() {
   }, []);
 
   return (
-    <section className="relative bg-paper text-paper-ink">
+    <section id="proses" className="relative bg-paper text-paper-ink">
       <div className="container-galivra grid grid-cols-1 gap-16 py-24 md:grid-cols-12 md:py-36 lg:py-44">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-32">

@@ -7,7 +7,6 @@ import { ArrowUpRight, Bot, Database, FileText, Lock, MessageCircle, Sparkles } 
 import { RevealText } from "@/components/cinematic/RevealText";
 import { Reveal } from "@/components/cinematic/Reveal";
 import { SpotlightCard } from "@/components/cinematic/SpotlightCard";
-import { ensureGsap, prefersReducedMotion, scheduleRefresh } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 function Tile({
@@ -22,7 +21,7 @@ function Tile({
   href: string;
   eyebrow: string;
   title: string;
-  body: string;
+  body: React.ReactNode;
   className?: string;
   children?: React.ReactNode;
   delay?: number;
@@ -53,7 +52,7 @@ const AI_STEPS = [
 
 function AiFlow() {
   return (
-    <div className="relative flex h-full min-h-[280px] flex-col justify-between py-2 pl-12">
+    <div className="relative flex h-full min-h-[260px] flex-col justify-center gap-5 py-2 pl-12">
       <div className="absolute bottom-6 left-[19px] top-6 w-px bg-line">
         <span
           className="absolute left-1/2 h-10 w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-transparent via-galivra-cyan to-transparent"
@@ -74,49 +73,6 @@ function AiFlow() {
           </span>
         </div>
       ))}
-    </div>
-  );
-}
-
-const BARS = [38, 62, 45, 80, 58, 92, 70];
-
-function DataChart() {
-  const ref = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
-    const { gsap } = ensureGsap();
-    const ctx = gsap.context(() => {
-      gsap.from("[data-bar]", {
-        scaleY: 0,
-        duration: 1.4,
-        stagger: 0.07,
-        ease: "expo.out",
-        scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" },
-      });
-    }, el);
-    scheduleRefresh();
-    return () => ctx.revert();
-  }, []);
-  return (
-    <div ref={ref} className="flex h-full min-h-[140px] flex-col justify-end gap-4">
-      <div className="flex h-28 items-end gap-2">
-        {BARS.map((h, i) => (
-          <span
-            key={i}
-            data-bar
-            className="flex-1 origin-bottom rounded-t-md bg-gradient-to-t from-galivra-deep to-galivra-bright"
-            style={{ height: `${h}%`, opacity: 0.5 + i * 0.07 }}
-          />
-        ))}
-      </div>
-      <div className="flex flex-wrap gap-1.5">
-        {["CSV", "Excel", "Database", "API"].map((t) => (
-          <span key={t} className="rounded-md bg-white/[0.05] px-2 py-1 font-mono text-[10px] text-ink-muted">
-            {t}
-          </span>
-        ))}
-      </div>
     </div>
   );
 }
@@ -192,18 +148,17 @@ export function Capabilities() {
           <Reveal y={10} blur={false}>
             <p className="eyebrow mb-6 flex items-center gap-2.5">
               <Sparkles className="h-3.5 w-3.5 text-galivra-cyan" />
-              Kapabilitas
+              Yang Anda dapatkan
             </p>
           </Reveal>
           <RevealText
-            text="Lebih dari sekadar website."
-            accent="sekadar"
-            className="text-display-md font-medium text-ink"
+            text="Anda tidak membeli fitur. Anda membeli hasil."
+            accent="hasil."
+            className="text-display-md font-medium text-ink text-balance"
           />
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-xl text-ink-muted md:text-[17px]">
-              Dari chatbot AI yang membalas pelanggan, data yang tersusun rapi,
-              sampai server yang berjalan di tempat Anda sendiri.
+              Empat hal yang berubah setelah kami selesai bekerja.
             </p>
           </Reveal>
         </div>
@@ -212,47 +167,56 @@ export function Capabilities() {
           <Tile
             href="/layanan/ai-otomasi"
             eyebrow="AI & Otomasi"
-            title="Pekerjaan berulang, berjalan sendiri."
-            body="Chatbot WhatsApp, otomasi input data, dan OCR dokumen — terhubung ke tools yang sudah Anda pakai."
-            className="md:col-span-4 md:row-span-2"
+            title="Anda tidur. Pesanan tetap masuk."
+            body={
+              <>
+                Chatbot WhatsApp membalas, mencatat, lalu merangkum.{" "}
+                <strong className="font-medium text-ink">Tanpa Anda pegang HP.</strong>
+              </>
+            }
+            className="md:col-span-4"
           >
             <AiFlow />
           </Tile>
           <Tile
-            href="/layanan/solusi-data"
-            eyebrow="Solusi Data"
-            title="Data publik, siap pakai."
-            body="Riset pasar dan lead generation dalam format CSV, Excel, atau API."
+            href="/layanan/pengembangan-website"
+            eyebrow="Web & Mobile"
+            title="Terlihat seperti perusahaan besar."
+            body={
+              <>
+                Pelanggan <strong className="font-medium text-ink">yakin</strong> sebelum sempat bertanya.
+              </>
+            }
             className="md:col-span-2"
             delay={0.08}
           >
-            <DataChart />
+            <DeviceStack />
           </Tile>
           <Tile
             href="/layanan/pos-system-on-premise"
             eyebrow="On-Premise"
-            title="Data tetap milik Anda."
-            body="POS di server lokal — tetap jalan walau internet mati."
+            title="Data Anda, di tangan Anda."
+            body={
+              <>
+                Internet mati? Kasir <strong className="font-medium text-ink">tetap jalan.</strong>
+              </>
+            }
             className="md:col-span-2"
             delay={0.16}
           >
             <PosLock />
           </Tile>
           <Tile
-            href="/layanan/pengembangan-website"
-            eyebrow="Web & Mobile"
-            title="Tampil meyakinkan di layar mana pun."
-            body="Website, e-commerce, dan aplikasi Android/iOS dengan source code penuh milik Anda."
-            className="md:col-span-3"
-          >
-            <DeviceStack />
-          </Tile>
-          <Tile
             href="/layanan/cloud-deployment"
             eyebrow="Cloud & Deployment"
-            title="Dari repo ke live, tanpa drama."
-            body="Server, domain, SSL, dan CI/CD dasar — dimonitor setelah rilis."
-            className="md:col-span-3"
+            title="Dari selesai ke live, tanpa drama."
+            body={
+              <>
+                Domain, server, SSL kami urus. Anda{" "}
+                <strong className="font-medium text-ink">cukup terima link-nya.</strong>
+              </>
+            }
+            className="md:col-span-4"
             delay={0.08}
           >
             <Terminal />

@@ -29,9 +29,9 @@ const SITE_URL = "https://galivra.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "GALIVRA — Solusi Inovasi | Mitra Teknologi Digital",
+  title: "GALIVRA — Studio Website, Aplikasi & Otomasi AI",
   description:
-    "GALIVRA membantu bisnis membangun website modern, aplikasi mobile, otomasi berbasis AI, solusi data, dan sistem digital yang bisa berkembang bersama bisnis Anda.",
+    "Bisnis Anda bagus, tapi tidak terlihat? GALIVRA membangun website, aplikasi, dan otomasi AI dengan harga terbuka sejak awal.",
   keywords: [
     "GALIVRA",
     "mitra inovasi digital",
@@ -52,16 +52,16 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: "GALIVRA",
-    title: "GALIVRA — Solusi Inovasi | Mitra Teknologi Digital",
+    title: "GALIVRA — Studio Website, Aplikasi & Otomasi AI",
     description:
-      "GALIVRA membantu bisnis membangun website modern, aplikasi mobile, otomasi berbasis AI, solusi data, dan sistem digital yang bisa berkembang bersama bisnis Anda.",
+      "Bisnis Anda bagus, tapi tidak terlihat? GALIVRA membangun website, aplikasi, dan otomasi AI dengan harga terbuka sejak awal.",
     images: [{ url: "/logo.png", width: 512, height: 512, alt: "GALIVRA" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GALIVRA — Solusi Inovasi | Mitra Teknologi Digital",
+    title: "GALIVRA — Studio Website, Aplikasi & Otomasi AI",
     description:
-      "GALIVRA membantu bisnis membangun website modern, aplikasi mobile, otomasi berbasis AI, solusi data, dan sistem digital yang bisa berkembang bersama bisnis Anda.",
+      "Bisnis Anda bagus, tapi tidak terlihat? GALIVRA membangun website, aplikasi, dan otomasi AI dengan harga terbuka sejak awal.",
     images: ["/logo.png"],
   },
   icons: {

@@ -8,7 +8,7 @@ import { SERVICES } from "@/lib/data";
 
 export function HargaPreview() {
   return (
-    <section className="section-pad relative">
+    <section id="harga-ringkas" className="section-pad relative">
       <div className="container-galivra grid grid-cols-1 gap-14 md:grid-cols-12">
         <div className="md:col-span-5">
           <Reveal y={10} blur={false}>

@@ -47,9 +47,9 @@ function MagneticCircle() {
       className="group relative flex h-40 w-40 shrink-0 items-center justify-center rounded-full bg-ink text-void md:h-52 md:w-52"
     >
       <span className="absolute inset-0 scale-0 rounded-full bg-brand-gradient transition-transform duration-700 ease-out-expo group-hover:scale-100" />
-      <span className="relative flex flex-col items-center gap-2 text-center font-medium tracking-[-0.01em] transition-colors duration-500 group-hover:text-white">
+      <span className="relative flex flex-col items-center gap-2 px-7 text-center text-sm font-medium leading-tight tracking-[-0.01em] transition-colors duration-500 group-hover:text-white md:text-base">
         <ArrowUpRight className="h-6 w-6 transition-transform duration-700 ease-out-expo group-hover:rotate-45" />
-        Mulai Project
+        Minta rencana gratis
       </span>
     </Link>
   );
@@ -66,20 +66,26 @@ export function CTASection() {
           <Reveal y={10} blur={false}>
             <p className="eyebrow mb-8 flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 rounded-full bg-galivra-cyan" />
-              Mulai sekarang
+              Keputusannya di tangan Anda
             </p>
           </Reveal>
           <RevealText
-            text="Punya ide? Ayo wujudkan bersama."
-            accent="wujudkan"
+            text="Pesaing Anda tidak menunggu."
+            accent="menunggu."
             accentClassName="serif-accent"
             className="max-w-[12ch] text-display-lg font-medium text-ink"
           />
           <Reveal delay={0.15}>
-            <p className="mt-8 max-w-md leading-relaxed text-ink-muted md:text-[17px]">
-              Ceritakan apa yang ingin Anda bangun. Konsultasi gratis, dan Anda
-              menerima rencana serta penawaran tertulis sebelum memutuskan.
-            </p>
+            <div className="mt-8 max-w-md space-y-3 leading-relaxed text-ink-muted md:text-[17px]">
+              <p>
+                Setiap minggu Anda menunda, pelanggan baru{" "}
+                <strong className="font-medium text-ink">mengenal nama lain</strong>.
+              </p>
+              <p>
+                Konsultasi gratis. Rencana dan harga tertulis.{" "}
+                <strong className="font-medium text-ink">Tanpa kewajiban lanjut.</strong>
+              </p>
+            </div>
           </Reveal>
           <Reveal delay={0.25}>
             <a

@@ -5,7 +5,7 @@ export type NavLink = {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Layanan", href: "/#services" },
-  { label: "Solusi", href: "/#solutions" },
+  { label: "Kapabilitas", href: "/#solutions" },
   { label: "Karya", href: "/karya" },
   { label: "Tentang", href: "/tentang" },
   { label: "Harga", href: "/harga" },
@@ -319,7 +319,7 @@ export const SERVICES: Service[] = [
   {
     index: "06",
     slug: "solusi-data",
-    title: "Solusi Data",
+    title: "Riset & Data",
     description:
       "Pengumpulan dan penyusunan data dari sumber publik untuk riset pasar, lead generation, atau monitoring bisnis — rapi dan siap pakai.",
     longDescription:
