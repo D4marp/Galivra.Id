@@ -45,11 +45,11 @@ export default function PortfolioDetailPage({
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-20" />
         <div className="container-galivra relative">
           <Link
-            href="/#work"
+            href="/karya"
             className="inline-flex items-center gap-2 text-sm text-ink-muted transition-colors duration-200 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
-            Kembali ke Karya Pilihan
+            Kembali ke semua karya
           </Link>
 
           <div className="mt-8 grid grid-cols-1 gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
@@ -59,7 +59,7 @@ export default function PortfolioDetailPage({
                 as="h1"
                 text={project.name}
                 trigger="mount"
-                className="mt-3 text-[2.25rem] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-6xl"
+                className="mt-3 text-display-md font-medium text-ink"
               />
               <Reveal y={16} delay={0.3}>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">

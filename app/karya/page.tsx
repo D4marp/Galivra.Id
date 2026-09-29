@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Pricing } from "@/sections/Pricing";
+import { Portfolio } from "@/sections/Portfolio";
 import { CTASection } from "@/sections/CTASection";
 
 export const metadata: Metadata = {
-  title: "Harga — GALIVRA",
+  title: "Karya — GALIVRA",
   description:
-    "Harga mulai per layanan GALIVRA — website, mobile app, e-commerce, sistem bisnis, AI & otomasi, data solutions, API integrasi, dan cloud deployment.",
+    "Portofolio GALIVRA: website, aplikasi mobile, sistem bisnis, dan infrastruktur yang sudah kami bangun untuk klien di Indonesia.",
 };
 
-export default function HargaPage() {
+export default function KaryaPage() {
   return (
     <>
       <Navbar />
-      <main className="relative">
-        <Pricing />
+      <main>
+        <Portfolio />
         <CTASection />
       </main>
       <Footer />

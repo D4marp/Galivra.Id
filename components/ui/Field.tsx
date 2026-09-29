@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const fieldBase =
-  "w-full rounded-lg bg-white/[0.03] border border-line px-4 py-3 text-sm text-ink placeholder:text-ink-faint outline-none transition-colors duration-200 focus:border-galivra-blue/60 focus:bg-white/[0.05]";
+  "w-full rounded-xl bg-white/[0.03] border border-white/10 px-4 py-3.5 text-[15px] text-ink placeholder:text-ink-faint outline-none transition-[border-color,background-color,box-shadow] duration-300 hover:border-white/20 focus:border-galivra-bright/70 focus:bg-white/[0.05] focus:shadow-[0_0_0_4px_rgba(142,124,255,0.12)]";
 
 export const Input = React.forwardRef<
   HTMLInputElement,
@@ -46,7 +46,7 @@ export function Label({
   return (
     <label
       htmlFor={htmlFor}
-      className="mb-2 block text-xs font-medium uppercase tracking-wide text-ink-muted"
+      className="mb-2 block font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted"
     >
       {children}
     </label>

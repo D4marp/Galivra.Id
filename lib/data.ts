@@ -4,10 +4,9 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Beranda", href: "/" },
   { label: "Layanan", href: "/#services" },
   { label: "Solusi", href: "/#solutions" },
-  { label: "Karya", href: "/#work" },
+  { label: "Karya", href: "/karya" },
   { label: "Tentang", href: "/tentang" },
   { label: "Harga", href: "/harga" },
   { label: "Kontak", href: "/kontak" },
@@ -543,53 +542,6 @@ export const SERVICES: Service[] = [
   },
 ];
 
-export type Solution = {
-  label: string;
-  title: string;
-  description: string;
-};
-
-export const SOLUTIONS: Solution[] = [
-  {
-    label: "Otomasi Bisnis",
-    title: "Alur Kerja Otomatis",
-    description: "Ubah proses yang berulang menjadi alur kerja otomatis.",
-  },
-  {
-    label: "Intelijen Data",
-    title: "Wawasan Terstruktur",
-    description:
-      "Kumpulkan, susun, dan ubah data publik menjadi wawasan yang bisa ditindaklanjuti.",
-  },
-  {
-    label: "Produk Digital",
-    title: "Dibangun untuk Berkembang",
-    description:
-      "Luncurkan website, aplikasi mobile, dan platform yang dirancang untuk skala besar.",
-  },
-];
-
-export const DATA_SOURCES = [
-  "Data Google Maps",
-  "Data Website",
-  "Halaman Facebook Publik",
-  "Informasi Bisnis Publik",
-  "Data Katalog Produk",
-  "Data Riset Pasar",
-];
-
-export const DATA_FLOW = ["Sumber", "Kumpulkan", "Proses", "Susun", "Ekspor"];
-export const DATA_OUTPUTS = ["CSV", "Excel", "Database", "API", "Dashboard"];
-
-export const AUTOMATION_EXAMPLES = [
-  "OCR",
-  "Chatbot AI",
-  "Pemrosesan Dokumen",
-  "Otomasi Alur Kerja",
-  "Pemrosesan Data",
-  "Kecerdasan Bisnis",
-];
-
 export type ProcessStep = {
   index: string;
   title: string;
@@ -656,15 +608,6 @@ export const PRINCIPLES: Principle[] = [
     title: "Skalabel",
     description: "Dibangun untuk berkembang bersama bisnis Anda.",
   },
-];
-
-export const TRUST_CATEGORIES = [
-  "Startup",
-  "UMKM",
-  "Pendidikan",
-  "Kesehatan",
-  "Enterprise",
-  "Organisasi",
 ];
 
 export const PROJECT_TYPES = [

@@ -57,13 +57,16 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="section-pad relative border-t border-line">
+    <section id="contact" className="relative pb-24 pt-36 md:pb-36 md:pt-44">
       <div className="container-galivra">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <SectionHeading
+              as="h1"
+              trigger="mount"
               eyebrow="Kontak"
-              title="Ceritakan Apa yang Sedang Anda Bangun."
+              title="Ceritakan apa yang sedang Anda bangun."
+              accent="bangun."
               description="Bagikan sedikit detail tentang project Anda dan tim GALIVRA akan segera menghubungi Anda kembali."
             />
 
@@ -84,7 +87,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             onSubmit={handleSubmit}
-            className="glass-panel rounded-2xl p-7 md:p-10"
+            className="rounded-3xl border border-line bg-panel/50 p-7 md:p-10"
           >
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>

@@ -3,20 +3,29 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { NAV_LINKS } from "@/lib/data";
+import { NAV_LINKS, SITE } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = React.useState(false);
+  const [hidden, setHidden] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 24);
-    }
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      // Hide while reading downward, return as soon as the visitor scrolls up.
+      if (Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 240);
+        last = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,107 +38,142 @@ export function Navbar() {
     };
   }, [open]);
 
+  React.useEffect(() => setOpen(false), [pathname]);
+
+  const isActive = (href: string) =>
+    !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
+
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled
-          ? "border-b border-line bg-void/80 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
-      )}
-    >
-      <div className="container-galivra flex h-20 items-center justify-between">
-        <a href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/logo.png"
-            alt="GALIVRA"
-            width={36}
-            height={36}
-            className="h-9 w-9 object-contain"
-            priority
-          />
-          <span className="flex flex-col leading-none">
-            <span className="text-lg font-semibold tracking-tight text-white">
-              GALIVRA
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-transform duration-700 ease-out-expo",
+          hidden && !open ? "-translate-y-full" : "translate-y-0"
+        )}
+      >
+        <div className="container-galivra flex h-20 items-center justify-between gap-6">
+          <Link href="/" className="relative z-10 flex items-center gap-2.5" aria-label="GALIVRA — Beranda">
+            <Image
+              src="/logo.png"
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain"
+              priority
+            />
+            <span className="font-display text-[17px] font-semibold tracking-[-0.03em] text-ink">
+              {SITE.name}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-              Solusi Inovasi
-            </span>
-          </span>
-        </a>
+          </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-ink-muted transition-colors duration-200 hover:text-white"
+          <nav
+            className={cn(
+              "absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full p-1.5 lg:flex",
+              "border transition-[background-color,border-color] duration-500",
+              scrolled
+                ? "border-white/10 bg-void/60 backdrop-blur-xl"
+                : "border-transparent bg-transparent"
+            )}
+          >
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "relative rounded-full px-4 py-2 text-[13px] transition-colors duration-300",
+                  isActive(link.href)
+                    ? "bg-white/[0.08] text-white"
+                    : "text-ink-muted hover:text-white"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="relative z-10 flex items-center gap-3">
+            <Button href="/kontak" variant="primary" withArrow className="hidden h-10 px-5 text-[13px] lg:inline-flex">
+              Mulai Project
+            </Button>
+            <button
+              aria-label={open ? "Tutup menu" : "Buka menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border border-white/10 bg-void/40 backdrop-blur-md lg:hidden"
             >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden lg:block">
-          <Button href="/kontak" variant="secondary" withArrow className="text-xs">
-            Mulai Project
-          </Button>
+              <span
+                className={cn(
+                  "h-px w-4 bg-white transition-transform duration-500 ease-out-expo",
+                  open && "translate-y-[3px] rotate-45"
+                )}
+              />
+              <span
+                className={cn(
+                  "h-px w-4 bg-white transition-transform duration-500 ease-out-expo",
+                  open && "-translate-y-[3px] -rotate-45"
+                )}
+              />
+            </button>
+          </div>
         </div>
-
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-white lg:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
+      </header>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-20 z-40 flex flex-col overflow-y-auto bg-void/98 backdrop-blur-xl lg:hidden"
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-void pt-24 lg:hidden"
           >
-            <nav className="container-galivra flex flex-1 flex-col justify-center gap-3 py-10 sm:gap-5">
+            <nav className="container-galivra flex flex-1 flex-col justify-center gap-1 pb-10">
               {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: i * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="text-2xl font-semibold tracking-tight text-white sm:text-3xl"
+                <div key={link.href} className="overflow-hidden">
+                  <motion.div
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "110%" }}
+                    transition={{ duration: 0.7, delay: 0.08 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-baseline gap-4 border-b border-line py-3"
+                    >
+                      <span className="font-mono text-[11px] text-ink-faint">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-display text-[2rem] font-medium leading-tight tracking-[-0.035em] text-ink">
+                        {link.label}
+                      </span>
+                    </Link>
+                  </motion.div>
+                </div>
               ))}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: NAV_LINKS.length * 0.05 }}
-                className="pt-3"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 flex flex-col gap-3"
               >
-                <Button
-                  href="/kontak"
-                  variant="primary"
-                  withArrow
-                  onClick={() => setOpen(false)}
-                >
+                <Button href="/kontak" variant="primary" withArrow size="lg" onClick={() => setOpen(false)}>
                   Mulai Project
                 </Button>
+                <a
+                  href={`https://wa.me/${SITE.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center text-sm text-ink-muted"
+                >
+                  atau chat langsung via WhatsApp
+                </a>
               </motion.div>
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

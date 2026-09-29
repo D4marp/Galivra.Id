@@ -1,27 +1,29 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Serif } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { CustomCursor } from "@/components/cinematic/CustomCursor";
 import { SmoothScroll } from "@/components/cinematic/SmoothScroll";
+import { Preloader } from "@/components/cinematic/Preloader";
+import { ScrollProgress } from "@/components/cinematic/ScrollProgress";
 import "./globals.css";
 
-const inter = Inter({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-serif",
   display: "swap",
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["500", "600", "700"],
-});
+export const viewport: Viewport = {
+  themeColor: "#07060C",
+  colorScheme: "dark",
+};
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
+// Runs before first paint: flags JS (so reveal targets can start hidden without
+// hurting no-JS visitors) and decides whether this visit gets the intro curtain.
+const prePaintScript = `(function(){try{var d=document.documentElement;d.dataset.js="";var r=window.matchMedia("(prefers-reduced-motion: reduce)").matches;var seen=sessionStorage.getItem("galivra-intro");d.dataset.intro=(r||seen)?"done":"pending";}catch(e){document.documentElement.dataset.intro="done";}})();`;
 
 const SITE_URL = "https://galivra.com";
 
@@ -75,9 +77,15 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${mono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${serif.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: prePaintScript }} />
+      </head>
       <body>
+        <Preloader />
+        <ScrollProgress />
         <CustomCursor />
         <SmoothScroll />
         {children}

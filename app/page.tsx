@@ -1,13 +1,12 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/sections/Hero";
-import { Trust } from "@/sections/Trust";
+import { ProjectMarquee } from "@/sections/ProjectMarquee";
+import { Manifesto } from "@/sections/Manifesto";
 import { Services } from "@/sections/Services";
-import { FeaturedSolutions } from "@/sections/FeaturedSolutions";
-import { WebScraping } from "@/sections/WebScraping";
-import { AIAutomation } from "@/sections/AIAutomation";
-import { AboutPreview } from "@/sections/AboutPreview";
-import { Portfolio } from "@/sections/Portfolio";
+import { FeaturedWork } from "@/sections/FeaturedWork";
+import { Capabilities } from "@/sections/Capabilities";
+import { Process } from "@/sections/Process";
 import { HargaPreview } from "@/sections/HargaPreview";
 import { CTASection } from "@/sections/CTASection";
 
@@ -17,13 +16,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Trust />
+        <ProjectMarquee />
+        <Manifesto />
         <Services />
-        <FeaturedSolutions />
-        <WebScraping />
-        <AIAutomation />
-        <AboutPreview />
-        <Portfolio />
+        <FeaturedWork />
+        <Capabilities />
+        <Process />
         <HargaPreview />
         <CTASection />
       </main>

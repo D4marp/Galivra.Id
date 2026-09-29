@@ -13,8 +13,7 @@ export default function KontakPage() {
   return (
     <>
       <Navbar />
-      <main className="relative pt-32">
-        <div className="grid-bg pointer-events-none absolute inset-0 opacity-20" />
+      <main className="relative">
         <Contact />
       </main>
       <Footer />

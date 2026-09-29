@@ -1,72 +1,105 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { SectionHeading } from "@/components/SectionHeading";
-import { PROCESS_STEPS } from "@/lib/data";
+import * as React from "react";
+import { MessageCircle } from "lucide-react";
+import { RevealText } from "@/components/cinematic/RevealText";
+import { Reveal } from "@/components/cinematic/Reveal";
+import { ensureGsap, prefersReducedMotion, scheduleRefresh } from "@/lib/gsap";
+import { PROCESS_STEPS, SITE } from "@/lib/data";
 
 export function Process() {
-  return (
-    <section className="section-pad relative border-t border-line bg-deep/40">
-      <div className="container-galivra">
-        <SectionHeading
-          eyebrow="Cara Memulai"
-          title="Dari Chat WhatsApp Sampai Project Selesai."
-          description="Prosesnya simpel — tidak perlu bingung harus mulai dari mana. Ikuti 5 langkah ini."
-        />
+  const listRef = React.useRef<HTMLOListElement>(null);
+  const lineRef = React.useRef<HTMLDivElement>(null);
 
-        {/* Desktop: horizontal timeline */}
-        <div className="mt-20 hidden lg:block">
-          <div className="relative grid grid-cols-5 gap-6">
-            <div className="absolute left-0 right-0 top-5 h-px bg-gradient-to-r from-galivra-blue/60 via-galivra-cyan/40 to-transparent" />
-            {PROCESS_STEPS.map((step, i) => (
-              <motion.div
-                key={step.index}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative pt-16"
+  React.useEffect(() => {
+    const list = listRef.current;
+    const line = lineRef.current;
+    if (!list || !line || prefersReducedMotion()) return;
+    const { gsap } = ensureGsap();
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        line,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: { trigger: list, start: "top 60%", end: "bottom 60%", scrub: 0.5 },
+        }
+      );
+
+      gsap.utils.toArray<HTMLElement>("[data-step]", list).forEach((step) => {
+        gsap.fromTo(
+          step,
+          { opacity: 0.28 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: { trigger: step, start: "top 68%", end: "top 48%", scrub: true },
+          }
+        );
+      });
+    }, list);
+
+    scheduleRefresh();
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section className="relative bg-paper text-paper-ink">
+      <div className="container-galivra grid grid-cols-1 gap-16 py-24 md:grid-cols-12 md:py-36 lg:py-44">
+        <div className="md:col-span-5">
+          <div className="md:sticky md:top-32">
+            <Reveal y={10} blur={false}>
+              <p className="mb-6 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-paper-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-galivra-blue" />
+                Cara kerja
+              </p>
+            </Reveal>
+            <RevealText
+              text="Dari chat pertama sampai live."
+              accent="live."
+              accentClassName="serif-accent text-galivra-blue"
+              className="text-display-md font-medium text-paper-ink"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-6 max-w-sm leading-relaxed text-paper-muted">
+                Tidak perlu paham teknis. Ceritakan kebutuhan Anda — kami susun
+                rencana, harga, dan jadwal yang jelas sebelum apa pun dimulai.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <a
+                href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Halo GALIVRA, saya ingin konsultasi project.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-10 inline-flex h-14 items-center gap-3 rounded-full bg-paper-ink pl-2 pr-6 text-[15px] font-medium text-paper transition-colors hover:bg-galivra-deep"
               >
-                <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-galivra-blue/50 bg-void font-mono text-xs text-galivra-bright">
-                  {step.index}
-                </div>
-                <h3 className="text-lg font-medium text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                  {step.description}
-                </p>
-              </motion.div>
-            ))}
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-paper text-paper-ink transition-transform duration-500 ease-out-expo group-hover:rotate-12">
+                  <MessageCircle className="h-4 w-4" />
+                </span>
+                Konsultasi gratis via WhatsApp
+              </a>
+            </Reveal>
           </div>
         </div>
 
-        {/* Mobile / tablet: vertical timeline */}
-        <div className="mt-14 space-y-10 lg:hidden">
-          {PROCESS_STEPS.map((step, i) => (
-            <motion.div
-              key={step.index}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="relative flex gap-5 pl-1"
-            >
-              <div className="flex flex-col items-center">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-galivra-blue/50 bg-void font-mono text-xs text-galivra-bright">
-                  {step.index}
-                </div>
-                {i < PROCESS_STEPS.length - 1 && (
-                  <div className="mt-2 w-px flex-1 bg-gradient-to-b from-galivra-blue/50 to-transparent" />
-                )}
-              </div>
-              <div className="pb-2">
-                <h3 className="text-lg font-medium text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
+        <ol ref={listRef} className="relative md:col-span-6 md:col-start-7">
+          <div className="absolute bottom-0 left-[1.35rem] top-0 w-px bg-paper-line md:left-[1.6rem]">
+            <div ref={lineRef} className="h-full w-full origin-top bg-galivra-blue" />
+          </div>
+          {PROCESS_STEPS.map((step) => (
+            <li key={step.index} data-step className="relative pb-16 pl-16 last:pb-0 md:pb-24 md:pl-20">
+              <span className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full border border-paper-line bg-paper font-mono text-xs text-paper-ink md:h-[3.2rem] md:w-[3.2rem]">
+                {step.index}
+              </span>
+              <h3 className="pt-1.5 font-display text-2xl font-medium tracking-[-0.03em] md:text-[2rem]">
+                {step.title}
+              </h3>
+              <p className="mt-3 max-w-md leading-relaxed text-paper-muted">{step.description}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

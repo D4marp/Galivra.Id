@@ -318,3 +318,17 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
 export function getPortfolioProject(slug: string) {
   return PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
 }
+
+/** Curated for the homepage showcase — live websites with clean full-bleed screenshots. */
+const FEATURED_SLUGS = [
+  "gensakidz",
+  "auto-lamongan",
+  "maxchine",
+  "annitadonat",
+  "overtime-basketball-lamongan",
+  "ptsam",
+];
+
+export const FEATURED_PROJECTS: PortfolioProject[] = FEATURED_SLUGS.map(
+  (slug) => getPortfolioProject(slug)
+).filter((p): p is PortfolioProject => Boolean(p));

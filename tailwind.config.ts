@@ -13,6 +13,12 @@ const config: Config = {
         void: "#07060C",
         deep: "#0B0915",
         panel: "#100D1B",
+        paper: {
+          DEFAULT: "#F2F0F5",
+          ink: "#0D0B16",
+          muted: "#5C566C",
+          line: "rgba(13, 11, 22, 0.12)",
+        },
         ink: {
           DEFAULT: "#F6F4F9",
           muted: "#ADA6C2",
@@ -27,41 +33,57 @@ const config: Config = {
         line: "rgba(180, 170, 200, 0.14)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
       },
       fontSize: {
-        "hero-desktop": ["104px", { lineHeight: "0.95", letterSpacing: "-0.04em" }],
-        "hero-tablet": ["68px", { lineHeight: "0.98", letterSpacing: "-0.035em" }],
-        "hero-mobile": ["48px", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
-      },
-      spacing: {
-        "section-y": "10rem",
-        "section-y-mobile": "5rem",
+        "display-xl": [
+          "clamp(3.1rem, 8.2vw, 8.5rem)",
+          { lineHeight: "0.93", letterSpacing: "-0.045em" },
+        ],
+        "display-lg": [
+          "clamp(2.6rem, 6vw, 6rem)",
+          { lineHeight: "0.96", letterSpacing: "-0.04em" },
+        ],
+        "display-md": [
+          "clamp(2.1rem, 4.2vw, 4rem)",
+          { lineHeight: "1.02", letterSpacing: "-0.035em" },
+        ],
+        "display-sm": [
+          "clamp(1.6rem, 2.6vw, 2.5rem)",
+          { lineHeight: "1.08", letterSpacing: "-0.03em" },
+        ],
       },
       backgroundImage: {
-        "grid-fine":
-          "linear-gradient(to right, rgba(180,170,200,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(180,170,200,0.07) 1px, transparent 1px)",
         "glow-blue":
           "radial-gradient(circle at 50% 0%, rgba(108,92,231,0.26), transparent 60%)",
-        "brand-gradient": "linear-gradient(90deg, #6C5CE7 0%, #FF6FB0 100%)",
+        "brand-gradient": "linear-gradient(90deg, #8E7CFF 0%, #FF6FB0 100%)",
       },
       animation: {
-        "pulse-slow": "pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        float: "float 8s ease-in-out infinite",
+        marquee: "marquee var(--marquee-duration, 40s) linear infinite",
+        "marquee-reverse":
+          "marquee var(--marquee-duration, 40s) linear infinite reverse",
         "spin-slow": "spin 40s linear infinite",
-        "spin-slower": "spin 70s linear infinite",
+        "pulse-dot": "pulse-dot 2.4s ease-in-out infinite",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-14px)" },
+        marquee: {
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(-50%, 0, 0)" },
+        },
+        "pulse-dot": {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.45", transform: "scale(0.8)" },
         },
       },
       boxShadow: {
         glow: "0 0 40px rgba(108,92,231,0.32)",
         "glow-cyan": "0 0 40px rgba(255,111,176,0.22)",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

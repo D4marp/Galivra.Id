@@ -81,7 +81,7 @@ export default function TermsPage() {
             as="h1"
             text="Syarat & Ketentuan"
             trigger="mount"
-            className="mt-4 max-w-2xl text-[2.25rem] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-6xl"
+            className="mt-4 max-w-2xl text-display-md font-medium text-ink"
           />
           <p className="mt-5 max-w-2xl text-sm text-ink-faint">
             Terakhir diperbarui: 8 Agustus 2026

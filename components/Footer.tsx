@@ -1,112 +1,143 @@
-import Image from "next/image";
-import { Instagram, Linkedin, MessageCircle } from "lucide-react";
-import { NAV_LINKS, SITE } from "@/lib/data";
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { NAV_LINKS, SERVICES, SITE } from "@/lib/data";
+import { ensureGsap, prefersReducedMotion, scheduleRefresh } from "@/lib/gsap";
+
+const SOCIALS = [
+  { label: "WhatsApp", href: `https://wa.me/${SITE.whatsapp}` },
+  { label: "Instagram", href: "https://www.instagram.com/galivra.id/" },
+  { label: "Email", href: `mailto:${SITE.email}` },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const wordRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const el = wordRef.current;
+    if (!el || prefersReducedMotion()) return;
+    const { gsap } = ensureGsap();
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        "[data-footer-letter]",
+        { yPercent: 100 },
+        {
+          yPercent: 0,
+          ease: "expo.out",
+          duration: 1.4,
+          stagger: 0.05,
+          scrollTrigger: { trigger: el, start: "top 95%", toggleActions: "play none none none" },
+        }
+      );
+    }, el);
+    scheduleRefresh();
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <footer className="relative border-t border-line bg-deep">
-      <div className="grid-bg pointer-events-none absolute inset-0 opacity-40" />
-      <div className="container-galivra relative py-16 md:py-20">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="GALIVRA"
-                width={32}
-                height={32}
-                className="h-8 w-8 object-contain"
-              />
-              <div className="flex flex-col leading-none">
-                <span className="text-base font-semibold text-white">
-                  {SITE.name}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-                  Solusi Inovasi
-                </span>
-              </div>
-            </div>
-            <p className="mt-5 max-w-xs text-sm text-ink-muted">
-              {SITE.tagline}
+    <footer className="relative overflow-hidden border-t border-line bg-void">
+      <div className="container-galivra relative pt-20 md:pt-28">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-5">
+            <p className="font-display text-display-sm font-medium text-ink">
+              Punya project? <span className="serif-accent text-gradient">Mari ngobrol.</span>
             </p>
-            <div className="mt-6 flex gap-3">
-              {[
-                {
-                  icon: Instagram,
-                  label: "Instagram",
-                  href: "https://www.instagram.com/galivra.id/",
-                },
-                { icon: Linkedin, label: "LinkedIn", href: "#" },
-                {
-                  icon: MessageCircle,
-                  label: "WhatsApp",
-                  href: `https://wa.me/${SITE.whatsapp}`,
-                },
-              ].map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink-muted transition-colors duration-200 hover:border-galivra-blue/50 hover:text-white"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
+            <a
+              href={`mailto:${SITE.email}`}
+              className="mt-6 inline-flex items-center gap-2 text-ink-muted transition-colors hover:text-white"
+            >
+              {SITE.email}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
           </div>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-ink-faint">
-              Navigasi
-            </p>
-            <ul className="mt-5 space-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-ink-muted transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
+          <div className="md:col-span-2 md:col-start-7">
+            <p className="eyebrow mb-5">Navigasi</p>
+            <ul className="space-y-2.5">
+              {NAV_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-ink-muted transition-colors hover:text-white">
+                    {l.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-ink-faint">
-              Legal
-            </p>
-            <ul className="mt-5 space-y-3">
-              <li>
-                <a
-                  href="/privacy-policy"
-                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-white"
-                >
-                  Kebijakan Privasi
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/terms"
-                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-white"
-                >
-                  Syarat &amp; Ketentuan
-                </a>
-              </li>
+          <div className="md:col-span-2">
+            <p className="eyebrow mb-5">Layanan</p>
+            <ul className="space-y-2.5">
+              {SERVICES.slice(0, 6).map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/layanan/${s.slug}`}
+                    className="text-sm text-ink-muted transition-colors hover:text-white"
+                  >
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-span-2 md:col-span-2">
+            <p className="eyebrow mb-5">Terhubung</p>
+            <ul className="space-y-2.5">
+              {SOCIALS.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target={s.href.startsWith("http") ? "_blank" : undefined}
+                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="group inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-white"
+                  >
+                    {s.label}
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col-reverse items-center justify-between gap-4 border-t border-line pt-8 text-xs text-ink-faint md:flex-row">
+        <div className="mt-20 flex flex-col-reverse items-start justify-between gap-4 border-t border-line pt-6 text-xs text-ink-faint md:flex-row md:items-center">
           <p>
-            © {year} {SITE.fullName}. Hak cipta dilindungi.
+            © {year} {SITE.fullName}
           </p>
-          <p className="font-mono">{SITE.tagline}</p>
+          <div className="flex gap-6">
+            <Link href="/privacy-policy" className="transition-colors hover:text-white">
+              Kebijakan Privasi
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-white">
+              Syarat &amp; Ketentuan
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div
+        ref={wordRef}
+        aria-hidden="true"
+        className="pointer-events-none relative mt-6 flex select-none justify-center overflow-hidden"
+      >
+        <div className="flex font-display text-[23vw] font-semibold leading-[0.78] tracking-[-0.07em]">
+          {SITE.name.split("").map((ch, i, all) => (
+            <span
+              key={i}
+              data-footer-letter
+              className="text-gradient inline-block pb-[0.02em]"
+              // One continuous gradient across the word: each letter shows its slice.
+              style={{
+                backgroundSize: `${all.length * 100}% 100%`,
+                backgroundPosition: `${(i / (all.length - 1)) * 100}% 0`,
+              }}
+            >
+              {ch}
+            </span>
+          ))}
         </div>
       </div>
     </footer>

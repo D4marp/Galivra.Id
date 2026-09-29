@@ -76,7 +76,7 @@ export default function LayananDetailPage({
                 as="h1"
                 text={service.title}
                 trigger="mount"
-                className="mt-4 text-[2.25rem] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-6xl"
+                className="mt-4 text-display-md font-medium text-ink"
               />
               <Reveal y={16} delay={0.3}>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted md:text-lg">

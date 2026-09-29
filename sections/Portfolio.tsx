@@ -1,66 +1,108 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
-import { ImageReveal } from "@/components/cinematic/ImageReveal";
-import { PORTFOLIO_PROJECTS } from "@/lib/portfolio";
+import { PORTFOLIO_PROJECTS, type PortfolioProject } from "@/lib/portfolio";
+import { cn } from "@/lib/utils";
 
+const FILTERS = ["Semua", "Website", "Mobile", "Sistem & Data"] as const;
+type Filter = (typeof FILTERS)[number];
+
+function groupOf(p: PortfolioProject): Exclude<Filter, "Semua"> {
+  if (p.category.startsWith("Website")) return "Website";
+  if (p.category.includes("Mobile")) return "Mobile";
+  return "Sistem & Data";
+}
+
+/** Full project archive with category filter — used on /karya. */
 export function Portfolio() {
+  const [filter, setFilter] = React.useState<Filter>("Semua");
+  const items = PORTFOLIO_PROJECTS.filter((p) => filter === "Semua" || groupOf(p) === filter);
+  const count = (f: Filter) =>
+    f === "Semua" ? PORTFOLIO_PROJECTS.length : PORTFOLIO_PROJECTS.filter((p) => groupOf(p) === f).length;
+
   return (
-    <section id="work" className="section-pad relative border-t border-line bg-deep/40">
+    <section id="work" className="relative pb-24 pt-36 md:pb-36 md:pt-44">
       <div className="container-galivra">
         <SectionHeading
-          eyebrow="Karya Pilihan"
-          title="Project yang Sudah Kami Kerjakan."
-          description={`${PORTFOLIO_PROJECTS.length} project nyata dari mobile app, web app, sampai infrastruktur — klik untuk lihat detail lengkap tiap project.`}
+          as="h1"
+          trigger="mount"
+          eyebrow="Karya"
+          title="Project yang sudah kami bangun."
+          accent="bangun."
+          description={`${PORTFOLIO_PROJECTS.length} project nyata — website, aplikasi mobile, sistem bisnis, sampai infrastruktur server.`}
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {PORTFOLIO_PROJECTS.map((item, i) => (
-            <motion.div
-              key={item.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (i % 6) * 0.06 }}
+        <div className="mt-12 flex flex-wrap gap-2" role="tablist" aria-label="Filter kategori">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              role="tab"
+              aria-selected={filter === f}
+              onClick={() => setFilter(f)}
+              className={cn(
+                "rounded-full border px-4 py-2 text-sm transition-colors duration-300",
+                filter === f
+                  ? "border-transparent bg-ink text-void"
+                  : "border-white/10 text-ink-muted hover:border-white/25 hover:text-white"
+              )}
             >
-              <Link
-                href={`/portfolio/${item.slug}`}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line"
-              >
-                <ImageReveal className="relative aspect-[16/9] bg-panel">
-                  <Image
-                    src={`/portfolio/${item.slug}.png`}
-                    alt={item.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-void via-void/10 to-transparent" />
-                  <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-line bg-void/60 text-ink-muted opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:border-galivra-blue/50 group-hover:text-galivra-cyan">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </div>
-                </ImageReveal>
-                <div className="glass-panel flex flex-1 flex-col border-t-0 p-6">
-                  <p className="eyebrow">{item.category}</p>
-                  <h3 className="mt-2 text-lg font-medium text-white">
-                    {item.name}
-                  </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
-                    {item.summary}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between border-t border-line pt-4 text-xs text-ink-faint">
-                    <span>{item.tech.slice(0, 2).join(", ")}</span>
-                    <span className="font-mono">{item.year}</span>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+              {f}
+              <span className="ml-2 font-mono text-[10px] opacity-60">{count(f)}</span>
+            </button>
           ))}
         </div>
+
+        <motion.div layout className="mt-12 grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-2">
+          <AnimatePresence mode="popLayout">
+            {items.map((item, i) => (
+              <motion.div
+                key={item.slug}
+                layout
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.7, delay: (i % 4) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  href={`/portfolio/${item.slug}`}
+                  data-cursor-label="Lihat"
+                  className="group block"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-panel">
+                    <Image
+                      src={`/portfolio/${item.slug}.png`}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-top transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
+                  </div>
+                  <div className="mt-5 flex items-start justify-between gap-6">
+                    <div>
+                      <h2 className="font-display text-2xl font-medium tracking-[-0.03em] text-ink transition-colors group-hover:text-galivra-cyan md:text-[1.75rem]">
+                        {item.name}
+                      </h2>
+                      <p className="mt-2 line-clamp-2 max-w-lg text-sm leading-relaxed text-ink-muted">
+                        {item.summary}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+                        {groupOf(item)}
+                      </p>
+                      <p className="mt-1 font-mono text-xs text-ink-muted">{item.year}</p>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

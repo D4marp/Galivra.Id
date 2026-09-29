@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Reveal } from "@/components/cinematic/Reveal";
+import { SpotlightCard } from "@/components/cinematic/SpotlightCard";
 import { PRINCIPLES } from "@/lib/data";
 
 export function WhyGalivra() {
@@ -10,29 +11,23 @@ export function WhyGalivra() {
       <div className="container-galivra">
         <SectionHeading
           eyebrow="Kenapa GALIVRA"
-          title="Dibangun dengan Tujuan. Direkayasa untuk Berkembang."
+          title="Dibangun dengan tujuan, direkayasa untuk berkembang."
+          accent="tujuan,"
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PRINCIPLES.map((principle, i) => (
-            <motion.div
-              key={principle.index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex min-h-[200px] flex-col justify-between bg-panel p-8"
-            >
-              <span className="num-marker">{principle.index}</span>
-              <div>
-                <h3 className="text-lg font-medium text-white">
-                  {principle.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                  {principle.description}
-                </p>
-              </div>
-            </motion.div>
+            <Reveal key={principle.index} delay={i * 0.08} y={24} className="h-full">
+              <SpotlightCard className="flex h-full min-h-[240px] flex-col justify-between rounded-3xl border border-line bg-panel/50 p-8">
+                <span className="serif-accent text-5xl text-ink-faint">{principle.index}</span>
+                <div>
+                  <h3 className="font-display text-xl font-medium tracking-[-0.02em] text-ink">
+                    {principle.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{principle.description}</p>
+                </div>
+              </SpotlightCard>
+            </Reveal>
           ))}
         </div>
       </div>

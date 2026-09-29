@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonSize = "md" | "lg";
 
 interface CommonProps {
   variant?: ButtonVariant;
+  size?: ButtonSize;
   withArrow?: boolean;
   magnetic?: boolean;
   className?: string;
@@ -21,19 +23,29 @@ export type ButtonProps = CommonProps &
   );
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-white text-void hover:shadow-glow shadow-[0_0_0_1px_rgba(255,255,255,0.06)]",
+  primary: "bg-ink text-void hover:bg-white",
   secondary:
-    "glass-panel text-ink hover:border-galivra-blue/40 hover:bg-white/[0.06]",
+    "border border-white/15 bg-white/[0.04] text-ink backdrop-blur-md hover:border-white/30 hover:bg-white/[0.08]",
   ghost: "text-ink-muted hover:text-white",
 };
 
-export const Button = React.forwardRef<
-  HTMLButtonElement | HTMLAnchorElement,
-  ButtonProps
->(
+const sizeStyles: Record<ButtonSize, string> = {
+  md: "h-12 px-6 text-sm",
+  lg: "h-14 px-8 text-[15px]",
+};
+
+export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
-    { className, variant = "primary", withArrow, magnetic = true, children, href, ...props },
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      withArrow,
+      magnetic = true,
+      children,
+      href,
+      ...props
+    },
     ref
   ) => {
     const elRef = React.useRef<HTMLButtonElement & HTMLAnchorElement>(null);
@@ -41,48 +53,65 @@ export const Button = React.forwardRef<
 
     React.useImperativeHandle(ref, () => elRef.current as HTMLButtonElement & HTMLAnchorElement);
 
-    function handleMouseMove(e: React.MouseEvent) {
+    const onMove = (e: React.MouseEvent) => {
       if (!magnetic || !elRef.current) return;
-      const rect = elRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
-      setOffset({ x, y });
-    }
+      const r = elRef.current.getBoundingClientRect();
+      setOffset({
+        x: (e.clientX - r.left - r.width / 2) * 0.22,
+        y: (e.clientY - r.top - r.height / 2) * 0.32,
+      });
+    };
+    const onLeave = () => setOffset({ x: 0, y: 0 });
 
-    function handleMouseLeave() {
-      setOffset({ x: 0, y: 0 });
-    }
-
-    const sharedClassName = cn(
-      "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium transition-all duration-300 ease-out",
-      "motion-reduce:transition-none",
+    const classes = cn(
+      "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-medium tracking-[-0.01em]",
+      "transition-[background-color,border-color,color,box-shadow] duration-300",
       variantStyles[variant],
+      sizeStyles[size],
       className
     );
-    const sharedStyle: React.CSSProperties = {
-      transform: `translate(${offset.x}px, ${offset.y}px)`,
-      transition: "transform 0.2s ease-out",
+    const style: React.CSSProperties = {
+      transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
+      transition: "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s, color 0.3s",
     };
-    const arrow = withArrow && (
-      <ArrowRight
-        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-        aria-hidden="true"
-      />
+
+    // Label rolls up on hover and an identical copy slides in from below.
+    const content = (
+      <>
+        <span className="relative block overflow-hidden">
+          <span className="block transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">
+            {children}
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 block translate-y-full transition-transform duration-500 ease-out-expo group-hover:translate-y-0"
+          >
+            {children}
+          </span>
+        </span>
+        {withArrow && (
+          <ArrowUpRight
+            className="h-4 w-4 transition-transform duration-500 ease-out-expo group-hover:rotate-45"
+            aria-hidden="true"
+          />
+        )}
+      </>
     );
 
     if (href !== undefined) {
+      const external = /^https?:\/\//.test(href);
       return (
         <a
           ref={elRef}
           href={href}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          style={sharedStyle}
-          className={sharedClassName}
+          onMouseMove={onMove}
+          onMouseLeave={onLeave}
+          style={style}
+          className={classes}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
-          {children}
-          {arrow}
+          {content}
         </a>
       );
     }
@@ -90,14 +119,13 @@ export const Button = React.forwardRef<
     return (
       <button
         ref={elRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={sharedStyle}
-        className={sharedClassName}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={style}
+        className={classes}
         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
-        {children}
-        {arrow}
+        {content}
       </button>
     );
   }
