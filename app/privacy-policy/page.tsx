@@ -7,6 +7,9 @@ import { RevealText } from "@/components/cinematic/RevealText";
 export const metadata: Metadata = {
   title: "Kebijakan Privasi — GALIVRA",
   description: "Kebijakan privasi GALIVRA mengenai data yang kami kumpulkan dan cara kami menggunakannya.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 const SECTIONS = [

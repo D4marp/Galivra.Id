@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/cinematic/Reveal";
 import { SpotlightCard } from "@/components/cinematic/SpotlightCard";
 import { SERVICES, SITE } from "@/lib/data";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 function waLinkFor(serviceTitle: string) {
   const text = `Halo GALIVRA, saya tertarik dengan layanan "${serviceTitle}". Bisa dijelaskan detail dan penawarannya?`;
@@ -68,15 +69,14 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <a
-                    href={waLinkFor(service.title)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <WhatsAppCTA
+                    locationLabel={`Pricing - ${service.title}`}
+                    message={`Halo GALIVRA, saya tertarik dengan layanan "${service.title}". Bisa dijelaskan detail dan penawarannya?`}
                     className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/10 text-sm font-medium text-ink transition-colors duration-300 hover:border-transparent hover:bg-ink hover:text-void"
                   >
                     <MessageCircle className="h-4 w-4" />
                     Tanya harga via WhatsApp
-                  </a>
+                  </WhatsAppCTA>
                 </SpotlightCard>
               </Reveal>
             );

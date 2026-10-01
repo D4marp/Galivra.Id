@@ -7,6 +7,9 @@ import { RevealText } from "@/components/cinematic/RevealText";
 export const metadata: Metadata = {
   title: "Syarat & Ketentuan — GALIVRA",
   description: "Syarat dan ketentuan penggunaan layanan GALIVRA.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 const SECTIONS = [

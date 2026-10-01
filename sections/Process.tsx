@@ -6,6 +6,7 @@ import { RevealText } from "@/components/cinematic/RevealText";
 import { Reveal } from "@/components/cinematic/Reveal";
 import { ensureGsap, prefersReducedMotion, scheduleRefresh } from "@/lib/gsap";
 import { PROCESS_STEPS, SITE } from "@/lib/data";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 export function Process() {
   const listRef = React.useRef<HTMLOListElement>(null);
@@ -69,17 +70,16 @@ export function Process() {
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <a
-                href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Halo GALIVRA, saya ingin konsultasi project.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppCTA
+                locationLabel="Process Section"
+                message="Halo GALIVRA, saya ingin konsultasi project."
                 className="group mt-10 inline-flex h-14 items-center gap-3 rounded-full bg-paper-ink pl-2 pr-6 text-[15px] font-medium text-paper transition-colors hover:bg-galivra-deep"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-paper text-paper-ink transition-transform duration-500 ease-out-expo group-hover:rotate-12">
                   <MessageCircle className="h-4 w-4" />
                 </span>
                 Konsultasi gratis via WhatsApp
-              </a>
+              </WhatsAppCTA>
             </Reveal>
           </div>
         </div>

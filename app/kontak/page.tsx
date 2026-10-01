@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Kontak — GALIVRA",
   description:
     "Hubungi GALIVRA untuk konsultasi gratis project Anda — via WhatsApp atau form project inquiry.",
+  alternates: {
+    canonical: "/kontak",
+  },
 };
 
 export default function KontakPage() {

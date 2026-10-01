@@ -8,6 +8,7 @@ import { RevealText } from "@/components/cinematic/RevealText";
 import { Reveal } from "@/components/cinematic/Reveal";
 import { ensureGsap } from "@/lib/gsap";
 import { SITE } from "@/lib/data";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 const Aurora = dynamic(() => import("@/components/cinematic/Aurora").then((m) => m.Aurora), {
   ssr: false,
@@ -88,15 +89,14 @@ export function CTASection() {
             </div>
           </Reveal>
           <Reveal delay={0.25}>
-            <a
-              href={`https://wa.me/${SITE.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppCTA
+              locationLabel="CTA Section"
+              message="Halo GALIVRA, saya ingin konsultasi gratis mengenai project digital saya."
               className="mt-8 inline-flex items-center gap-2 text-sm text-ink transition-colors hover:text-galivra-cyan"
             >
               <span className="border-b border-white/25 pb-0.5">Atau chat langsung via WhatsApp</span>
               <ArrowUpRight className="h-4 w-4" />
-            </a>
+            </WhatsAppCTA>
           </Reveal>
         </div>
         <Reveal delay={0.2} scale>

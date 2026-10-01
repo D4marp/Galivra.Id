@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import WhatsAppCTA from "@/components/WhatsAppCTA";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -161,14 +162,13 @@ export function Navbar() {
                 <Button href="/kontak" variant="primary" withArrow size="lg" onClick={() => setOpen(false)}>
                   Mulai Project
                 </Button>
-                <a
-                  href={`https://wa.me/${SITE.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-center text-sm text-ink-muted"
+                <WhatsAppCTA
+                  locationLabel="Navbar Mobile Menu"
+                  message="Halo GALIVRA, saya ingin konsultasi mengenai project digital."
+                  className="text-center text-sm text-ink-muted hover:text-white transition-colors"
                 >
                   atau chat langsung via WhatsApp
-                </a>
+                </WhatsAppCTA>
               </motion.div>
             </nav>
           </motion.div>

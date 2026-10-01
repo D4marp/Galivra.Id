@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Harga — GALIVRA",
   description:
     "Harga mulai per layanan GALIVRA — website, mobile app, e-commerce, sistem bisnis, AI & otomasi, data solutions, API integrasi, dan cloud deployment.",
+  alternates: {
+    canonical: "/harga",
+  },
 };
 
 export default function HargaPage() {

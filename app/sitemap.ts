@@ -1,37 +1,34 @@
-import type { MetadataRoute } from "next";
-import { SERVICES } from "@/lib/data";
-import { PORTFOLIO_PROJECTS } from "@/lib/portfolio";
-
-const BASE_URL = "https://galivra.com";
+import type { MetadataRoute } from 'next';
+import { SERVICES } from '@/lib/data';
+import { PORTFOLIO_PROJECTS } from '@/lib/portfolio';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.galivra.web.id';
+  const lastMod = new Date();
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: `${BASE_URL}/karya`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/tentang`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/harga`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/kontak`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/privacy-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: baseUrl, lastModified: lastMod, changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${baseUrl}/karya`, lastModified: lastMod, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/tentang`, lastModified: lastMod, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/harga`, lastModified: lastMod, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/kontak`, lastModified: lastMod, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/privacy-policy`, lastModified: lastMod, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/terms`, lastModified: lastMod, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  const serviceRoutes: MetadataRoute.Sitemap = SERVICES.map((service) => ({
-    url: `${BASE_URL}/layanan/${service.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
+  const services: MetadataRoute.Sitemap = SERVICES.map((service) => ({
+    url: `${baseUrl}/layanan/${service.slug}`,
+    lastModified: lastMod,
+    changeFrequency: 'monthly',
     priority: 0.9,
   }));
 
-  const portfolioRoutes: MetadataRoute.Sitemap = PORTFOLIO_PROJECTS.map(
-    (project) => ({
-      url: `${BASE_URL}/portfolio/${project.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    })
-  );
+  const portfolios: MetadataRoute.Sitemap = PORTFOLIO_PROJECTS.map((project) => ({
+    url: `${baseUrl}/portfolio/${project.slug}`,
+    lastModified: lastMod,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
 
-  return [...staticRoutes, ...serviceRoutes, ...portfolioRoutes];
+  return [...staticPages, ...services, ...portfolios];
 }

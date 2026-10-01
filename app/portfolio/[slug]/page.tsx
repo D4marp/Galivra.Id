@@ -25,6 +25,9 @@ export function generateMetadata({
   return {
     title: `${project.name} — Karya GALIVRA`,
     description: project.summary,
+    alternates: {
+      canonical: `/portfolio/${params.slug}`,
+    },
   };
 }
 

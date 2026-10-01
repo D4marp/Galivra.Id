@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Tentang Kami — GALIVRA",
   description:
     "Kenali GALIVRA lebih dekat — prinsip kerja kami dan alur lengkap memulai project bersama kami.",
+  alternates: {
+    canonical: "/tentang",
+  },
 };
 
 const STATS = [

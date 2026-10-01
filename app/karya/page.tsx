@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Karya — GALIVRA",
   description:
     "Portofolio GALIVRA: website, aplikasi mobile, sistem bisnis, dan infrastruktur yang sudah kami bangun untuk klien di Indonesia.",
+  alternates: {
+    canonical: "/karya",
+  },
 };
 
 export default function KaryaPage() {
