@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -53,16 +52,8 @@ export function Navbar() {
         )}
       >
         <div className="container-galivra flex h-20 items-center justify-between gap-6">
-          <Link href="/" className="relative z-10 flex items-center gap-2.5" aria-label="GALIVRA — Beranda">
-            <Image
-              src="/logo.png"
-              alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain"
-              priority
-            />
-            <span className="font-display text-[17px] font-semibold tracking-[-0.03em] text-ink">
+          <Link href="/" className="relative z-10 flex items-center" aria-label="GALIVRA — Beranda">
+            <span className="font-display text-[18px] font-semibold tracking-tight text-ink transition-colors hover:text-white">
               {SITE.name}
             </span>
           </Link>
